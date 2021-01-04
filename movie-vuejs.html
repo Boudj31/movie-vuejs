@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   
+
+</head>
+<body>
+    
+    <div id="app" class="container">
+
+        <h1 class="bg-danger text-white text-center rounded mt-3 mb-3"> {{ title }} </h1>
+
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Couverture</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="livre of l_livres">
+                <th scope="row" class="bg-dark text-white"> {{ livre.id }} </th>
+                <td class="bg-dark text-white "><img :src="'img/'+ livre.img+'.jpg'" :alt="livre.alt" :width="width"></td>
+                <td class="bg-dark text-white"> {{ livre.name }} </td>
+                <td class="bg-dark text-white"> {{ livre.auteur }} </td>
+                <td v-if="livre.statut" class=" bg-dark text-success font-weight-bold"> lu </td>
+                <td v-else class=" bg-dark text-danger font-weight-bold"> A lire </td>
+                <td class="bg-dark text-white"> <button v-on:click="livre.statut = !livre.statut" class="btn btn-secondary bg-primary"> Modifier </button> </td>
+              </tr>
+            </tbody>
+          </table>
+
+    </div>
+
+
+    <script>
+
+        class Livre {
+            id;
+            name;
+            auteur;
+            statut;
+            img;
+            alt;
+
+            constructor(l_id, l_name, l_auteur, l_statut, l_img, l_alt) {
+                this.id = l_id;
+                this.name = l_name;
+                this.auteur = l_auteur;
+                this.statut = l_statut;
+                this.img = l_img;
+                this.alt = l_alt;
+            }
+        }
+
+        const app = new Vue({
+            el : '#app',
+            data : {
+                title : 'Liste de livres',
+                l_livres : [
+                    new Livre(1, 'le hasard n\'existe pas', 'K.O. Schmidt', false, 'livre_1' , 'Ma super image !'),
+                    new Livre(2, 'L\'Art d\'écouter les battements de coeur ', 'Jan-Philipp Sendker', false, 'livre_2' , 'Ma super image !'),
+                    new Livre(3, 'La femme au carnet rouge', 'Antoine Laurain', true, 'livre_3' , 'Ma super image !'),
+                    new Livre(4, 'Brooklyn', 'Murielle Magellan', true, 'livre_4' , 'Ma super image !'),
+                    new Livre(5, 'Dragon Ball', 'Akira Toriyama', true, 'livre_7' , 'Ma super image !'),
+                    new Livre(5, 'One Piece', 'Eichiro Oda', true, 'livre_10' , 'Ma super image !'),
+                    new Livre(5, 'Hunter x Hunter', 'Yoshihiro Togashi', false, 'livre_8' , 'Ma super image !'),
+                    new Livre(5, 'Berserk', 'Kentaro Miura', false, 'livre_6' , 'Ma super image !'),
+                    new Livre(5, 'Black Clover', 'Yuki Tabata', false, 'livre_5' , 'Ma super image !'),
+
+                ],
+                width: 60,
+                
+            }
+        })
+    </script>
+
+</body>
+</html>
